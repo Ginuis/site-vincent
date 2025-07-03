@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaInstagram, FaFacebookF, FaXTwitter } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
