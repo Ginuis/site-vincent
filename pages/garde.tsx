@@ -1,33 +1,56 @@
-// pages/garde.tsx
-import Head from 'next/head';
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import images from '../data/images.json'; // fichier JSON généré automatiquement
 
-export default function PageDeGarde() {
+export default function PageGarde() {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  /**
+   * Change d'image toutes les 15 minutes (900_000 ms)
+   */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 900000); // 15 minutes
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <>
-      <Head>
-        <title>Vincent Photographie</title>
-      </Head>
+    <div
+      className="h-screen w-screen bg-cover bg-center flex flex-col items-center justify-center transition-all duration-1000"
+      style={{
+        backgroundImage: `url(${images[currentImage]})`,
+        color: 'white',
+        textShadow: '0 0 10px rgba(0,0,0,0.7)', // assure la lisibilité
+      }}
+    >
+      {/* Nom principal centré */}
+      <h1 className="text-4xl md:text-6xl font-bold tracking-wide mb-6 text-center">
+        VINCENT DUPIL BACLET
+      </h1>
 
-      <main
-        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/garde.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-
-        <div className="relative z-10 flex flex-col items-center justify-center h-screen text-white text-center px-4">
-          <h1 className="text-6xl md:text-8xl font-bold font-geist tracking-wide mb-4">
-            VINCENT
-          </h1>
-
-          <Link
-            href="/accueil"
-            className="text-4xl md:text-6xl font-light tracking-widest font-geist transition duration-300 hover:tracking-[0.5em] hover:text-gray-300"
-          >
-            PHOTOGRAPHIE
-          </Link>
-        </div>
-      </main>
-    </>
+      {/* Lien animé vers la page d’accueil */}
+      <Link href="/accueil">
+        <span
+          className="
+            text-2xl md:text-3xl font-light cursor-pointer relative group
+            transition-all duration-300 ease-in-out
+            hover:text-white hover:brightness-110
+          "
+          style={{
+            textShadow: '0 0 6px rgba(255, 255, 255, 0.4)',
+          }}
+        >
+          PHOTOGRAPHIE
+          <span
+            className="
+              absolute left-0 -bottom-1 w-0 h-[2px] bg-white
+              transition-all duration-500 ease-out group-hover:w-full
+            "
+          />
+        </span>
+      </Link>
+    </div>
   );
 }

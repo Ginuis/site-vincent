@@ -1,0 +1,10 @@
+// tsconfig.scripts.json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2019",
+    "outDir": "dist-scripts"
+  },
+  "include": ["scripts"]
+}

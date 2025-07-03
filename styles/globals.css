@@ -20,3 +20,24 @@
 body {
   font-family: 'Geist', sans-serif;
 }
+
+/* styles/globals.css ou dans tailwind.css */
+/* === Variante 2 : néon violet-bleu-rose === */
+.hover-link-vibrant {
+  @apply transition duration-300 relative font-light;
+}
+
+.hover-link-vibrant:hover {
+  font-weight: 600;
+  background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holo-glow 2s ease-in-out infinite;
+}
+
+@keyframes holo-glow {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}

@@ -2,15 +2,17 @@
   "name": "site-vincent",
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run generate-all && next dev",
+    "build": "npm run generate-all && next build",  
     "start": "next start",
-    "tailwind:init": "./node_modules/.bin/tailwindcss init -p"
+    "tailwind:init": "./node_modules/.bin/tailwindcss init -p",
+    "generate-all": "ts-node -P tsconfig.scripts.json scripts/genAll.ts"
   },
   "dependencies": {
-    "next": "13.4.19",
+    "next": "^13.5.11",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@types/node": "24.0.4",
@@ -18,6 +20,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   }
 }
