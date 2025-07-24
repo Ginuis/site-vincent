@@ -1,135 +1,205 @@
-# Site vitrine – Vincent Dupil Baclet / Portfolio Website
-
-Ce site est un portfolio artistique professionnel conçu pour Vincent Dupil Baclet.  
-Il utilise **Next.js**, **Tailwind CSS** et **TypeScript**, avec un design immersif et des galeries dynamiques.
-
-This website is a professional portfolio built for Vincent Dupil Baclet.  
-It uses **Next.js**, **Tailwind CSS**, and **TypeScript**, with immersive design and dynamic galleries.
+# 📸 Site Vincent Dupil Baclet
 
 ---
 
-## 🚀 Installation & Démarrage / Setup & Run
+## 🇫🇷 Présentation
 
-### 💾 Installation des dépendances / Install dependencies
+Site officiel de **Vincent Dupil Baclet**, mettant en avant ses travaux artistiques (photographie, projets personnels, concept art).  
+Le site est développé avec **Next.js 15**, **React 18**, **Tailwind CSS** et intègre un système dynamique de galeries.
 
+### 🔥 Fonctionnalités principales
+- **Page d'accueil** :
+  - Carrousel vertical automatique avec défilement doux continu.
+  - Navbar et Footer transparents synchronisés avec l'ambiance générale.
+  
+- **Page de garde** :
+  - Texte "VINCENT DUPIL BACLET" avec effet fondu redirigeant automatiquement vers l’accueil.
+
+- **Galeries dynamiques** :
+  - **Persona** : mélange aléatoire d’images monochromes et couleur, ambiance dynamique (fond sombre ou clair).
+  - **Nature** : ambiance naturelle et immersive.
+  - Génération automatique des images via un script unique (`genGalleries.js`).
+
+- **Responsive Design** : Compatible PC, tablette, smartphone.
+- **Déploiement** : Intégré avec Vercel.
+
+---
+
+### 📂 Structure du projet
+
+site-vincent/
+├── components/          
+├── pages/               
+│   ├── garde.tsx
+│   ├── accueil.tsx
+│   ├── projets/
+│   │   ├── persona.tsx
+│   │   └── nature.tsx
+├── public/images/       
+│   ├── pg/              
+│   ├── galerie/
+│       ├── monochrome/  
+│       ├── couleur/     
+│       └── nature/      
+├── data/
+│   └── galleries.json   
+├── scripts/
+│   └── genGalleries.js  
+├── next.config.mjs      
+└── tailwind.config.js   
+
+---
+
+### ⚙️ Installation et utilisation
+
+1. **Cloner le dépôt**
+```bash
+git clone https://github.com/<votre-utilisateur>/site-vincent.git
+cd site-vincent
+```
+2. **Installer les dépendances**
 ```bash
 npm install
 ```
-
-### 🧪 Lancer en mode développement / Start development server
-
+3. **Générer les galeries**
+```bash
+npm run generate-galleries
+```
+4. **Lancer le serveur de développement**
 ```bash
 npm run dev
 ```
+Ouvrir [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
-Cela va :
-- Générer automatiquement les fichiers JSON pour les galeries (`images.json`, `personaImages.json`, `natureImages.json`)
-- Démarrer le site sur : [http://localhost:3000](http://localhost:3000)
-
-This will:
-- Auto-generate gallery JSON files (`images.json`, `personaImages.json`, `natureImages.json`)
-- Start the dev server at [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🔁 Génération automatique des galeries / Automatic Gallery Generation
-
-Chaque dossier d’images est analysé automatiquement :
-
-- `/public/images/pg/` → images d’arrière-plan (page de garde)
-- `/public/images/galerie/nature/` → galerie *Nature*
-- `/public/images/galerie/monochrome/` + `/galerie/couleur/` → galerie *Persona*
-
-Résultat enregistré dans `/data/`.
-
----
-
-## 📜 Scripts disponibles / Available Scripts
-
+5. **Build pour la production**
 ```bash
-npm run dev                  # Dev + génération automatique des galeries
-npm run build                # Build + génération automatique
-npm run generate-galleries   # Génère uniquement tous les fichiers JSON
+npm run build
+npm start
 ```
 
 ---
 
-## 🎨 Identité visuelle & Pages / Visual Identity & Pages
+### 🛠️ Scripts disponibles
 
-- **Page de garde** : image plein écran, texte unique **“VINCENT DUPIL BACLET”** en fondu + redirection auto vers l’accueil.  
-- **Accueil** :
-  - Carrousel vertical immersif en défilement continu ultra lent (60s).
-  - Navbar & Footer transparents pour une immersion totale.
-- **Persona** :
-  - Mélange aléatoire des images (monochrome + couleur).
-  - Ambiance dynamique : sombre pour monochrome, claire pour couleur.
-- **Nature** :
-  - Ambiance verdoyante, style épuré et naturel.
-
-**Typographie** : Fira Sans (équivalent Google Fonts de DIN Alternate).  
-**Responsive design** : compatible mobile & desktop.
+| Commande                 | Description |
+|---------------------------|-------------|
+| `npm run dev`            | Lancement du serveur local (avec génération des galeries). |
+| `npm run build`          | Build optimisé pour la production. |
+| `npm run generate-galleries` | Génère automatiquement le fichier `data/galleries.json`. |
 
 ---
 
-## 🧭 Navigation & Footer
+### 🚀 Déploiement
 
-### Barre de navigation / Navigation bar
-- **Nom** : `VINCENT DUPIL BACLET` (MAJUSCULES, cliquable → `/accueil`)
-- **Liens** : Concept Art, Projets (sous-menu Persona & Nature), Contact
-- **Icônes** :
-  - Instagram : [vincentdupilbaclet](https://www.instagram.com/vincentdupilbaclet?igsh=Zmo4Z21yNmt2aWJ3&utm_source=qr)
-  - Facebook & X (liens placeholder)
-- **Effets** : lien actif surbrillant, hover néon/holographique.
-
-### Footer
-- Petit footer translucide, centré : `© Vincent Dupil Baclet`
+- Le site est déployé automatiquement sur **Vercel** à chaque commit `main`.
+- URL de production : **[à renseigner après déploiement]**
 
 ---
 
-## 🚀 Déploiement / Deployment
+### 📌 Prochaines étapes
 
-Le site est déployé automatiquement via [Vercel](https://vercel.com).
-
-- **Chaque push sur `main` → déploiement automatique.**  
-- **Nom de domaine personnalisé possible** (70–90 €/an).
+- Ajout d’un **CMS headless** pour la gestion dynamique des médias.
+- Outil d’administration sécurisé pour gérer les galeries.
+- Optimisation SEO et accessibilité.
 
 ---
 
-## 🧱 Stack & Structure du projet / Stack & Project Structure
+## 🇬🇧 Presentation
 
-- **Next.js** 13 (Pages Router)
-- **TypeScript** (typage strict)
-- **Tailwind CSS** (styles rapides & responsive)
-- **React Icons** (icônes)
-- **Scripts personnalisés Node.js** (génération automatique JSON)
+Official website of **Vincent Dupil Baclet**, showcasing artistic works (photography, personal projects, concept art).  
+Developed with **Next.js 15**, **React 18**, and **Tailwind CSS**, featuring dynamic galleries.
 
+### 🔥 Key Features
+- **Home Page:**
+  - Automatic vertical carousel with smooth continuous scrolling.
+  - Transparent Navbar and Footer synchronized with the global ambiance.
+
+- **Landing Page:**
+  - "VINCENT DUPIL BACLET" text with a fade-in effect redirecting to the home page.
+
+- **Dynamic Galleries:**
+  - **Persona**: random mix of monochrome and color images, dynamic ambiance (dark/light).
+  - **Nature**: immersive natural ambiance.
+  - Automatic generation of galleries with `genGalleries.js`.
+
+- **Responsive Design**: Fully optimized for PC, tablet, and mobile.
+- **Deployment**: Integrated with Vercel.
+
+---
+
+### 📂 Project Structure
+
+site-vincent/
+├── components/          
+├── pages/               
+│   ├── garde.tsx
+│   ├── accueil.tsx
+│   ├── projets/
+│   │   ├── persona.tsx
+│   │   └── nature.tsx
+├── public/images/       
+│   ├── pg/              
+│   ├── galerie/
+│       ├── monochrome/  
+│       ├── couleur/     
+│       └── nature/      
+├── data/
+│   └── galleries.json   
+├── scripts/
+│   └── genGalleries.js  
+├── next.config.mjs      
+└── tailwind.config.js   
+
+---
+
+### ⚙️ Installation & Usage
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/<your-username>/site-vincent.git
+cd site-vincent
 ```
-.
-├── components/        # Navbar, Footer, Galerie
-├── pages/             # garde, accueil, projets/persona, projets/nature...
-├── public/images/     # images des galeries
-├── data/              # JSON générés (personaImages, natureImages…)
-├── scripts/           # scripts de génération automatique
-└── styles/            # globals.css, animations
+2. **Install dependencies**
+```bash
+npm install
+```
+3. **Generate galleries**
+```bash
+npm run generate-galleries
+```
+4. **Start development server**
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+5. **Build for production**
+```bash
+npm run build
+npm start
 ```
 
 ---
 
-## 📝 Journal de modifications / Changelog
+### 🛠️ Available Scripts
 
-Voir le fichier [`CHANGELOG.md`](./CHANGELOG.md) pour plus de détails.  
-Dernière version : **v1.3.0 – Amélioration de l’accueil & galeries** (24/07/2025).
-
----
-
-## © Crédits & Licence
-
-Développé par **Splendeurs** pour l’artiste **Vincent Dupil Baclet**.  
-Projet réalisé dans un cadre professionnel & artistique.  
-
-Usage commercial ou distribution interdits sans autorisation.  
-Utilisation pédagogique ou personnelle autorisée avec crédits.
+| Command                  | Description |
+|--------------------------|-------------|
+| `npm run dev`           | Start the local dev server (with gallery generation). |
+| `npm run build`         | Build optimized for production. |
+| `npm run generate-galleries` | Automatically generates `data/galleries.json`. |
 
 ---
 
-Made with ❤️ in France.
+### 🚀 Deployment
+
+- Automatically deployed on **Vercel** for every `main` commit.
+- Production URL: **[to fill after deployment]**
+
+---
+
+### 📌 Next Steps
+
+- Add a **headless CMS** for dynamic media management.
+- Secure admin panel for gallery management.
+- SEO and accessibility optimization.

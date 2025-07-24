@@ -1,19 +1,44 @@
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
-import json from "@eslint/json";
-import markdown from "@eslint/markdown";
-import css from "@eslint/css";
-import { defineConfig } from "eslint/config";
+import reactPlugin from "eslint-plugin-react";
 
+export default [
+  // ✅ Ignore les fichiers inutiles (ancien .eslintignore)
+  {
+    ignores: ["node_modules", ".next", "public", "data"],
+  },
 
-export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"] },
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], languageOptions: { globals: {...globals.browser, ...globals.node} } },
-  tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
-  { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
-  { files: ["**/*.md"], plugins: { markdown }, language: "markdown/gfm", extends: ["markdown/recommended"] },
-  { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
-]);
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: "module",
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    plugins: {
+      react: reactPlugin,
+    },
+    settings: {
+      react: {
+        version: "detect", // ✅ Évite l'avertissement de version
+      },
+    },
+    rules: {
+      "react/react-in-jsx-scope": "off", // ✅ Obligatoire avec Next.js 12+
+      "react/prop-types": "off",         // ✅ TS gère déjà les types
+      "@typescript-eslint/no-explicit-any": "warn", // ✅ Plus de blocage avec any
+    },
+  },
+];

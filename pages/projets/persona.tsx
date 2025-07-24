@@ -1,32 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import type { GetStaticProps } from 'next';
-import personaData from '@/data/personaImages.json';
+import galleriesData from '@/data/galleries.json';
 
-// Chargement dynamique du composant slider (évite erreurs SSR)
+// ✅ Chargement dynamique pour éviter des erreurs SSR
 const FeaturedGallery = dynamic(() => import('@/components/FeaturedGallery'), { ssr: false });
 
-// Type d’image
+// ✅ Typage strict des images Persona
 type ImageData = {
-  src: string;
-  alt: string;
-  type: 'monochrome' | 'color';
+  src: string; // chemin public de l'image
+  alt: string; // texte alternatif
+  type: 'monochrome' | 'color'; // ambiance
 };
 
-// Props de la page
 interface PersonaPageProps {
-  shuffledImages: ImageData[];
+  shuffledImages: ImageData[]; // images mélangées passées en props
 }
 
 export default function PersonaPage({ shuffledImages }: PersonaPageProps) {
   const [ambiance, setAmbiance] = useState<'monochrome' | 'color'>('color');
 
-  // Mapping ambiance → styles CSS
+  // ✅ Définition des classes selon l’ambiance (mise à jour en direct)
   const ambianceClasses = {
-    monochrome: 'bg-neutral-900 text-gray-200',
-    color: 'bg-white text-gray-800',
+    monochrome: 'bg-neutral-900 text-gray-200', // fond sombre
+    color: 'bg-white text-gray-800', // fond clair
   };
 
   return (
@@ -34,6 +33,8 @@ export default function PersonaPage({ shuffledImages }: PersonaPageProps) {
       <Navbar />
       <main className="pt-28 pb-12">
         <h1 className="text-3xl font-bold text-center mb-8">Galerie Persona</h1>
+
+        {/* ✅ Galerie dynamique : envoie les images et récupère le type pour changer l’ambiance */}
         <FeaturedGallery images={shuffledImages} onTypeChange={setAmbiance} />
       </main>
       <Footer ambiance={ambiance} />
@@ -41,31 +42,30 @@ export default function PersonaPage({ shuffledImages }: PersonaPageProps) {
   );
 }
 
-// Fonction exécutée au build pour fusionner et mélanger les images
+// ✅ Génération statique : fusion + mélange aléatoire des images Persona
 export const getStaticProps: GetStaticProps<PersonaPageProps> = async () => {
-  const { monochrome = [], couleur = [] } = personaData;
+  const { monochrome, mosaic } = galleriesData;
 
-  // Fusionner les deux tableaux en les typant
- const allImages: ImageData[] = [
-    ...monochrome.map((src) => ({
+  const allImages: ImageData[] = [
+    ...(monochrome || []).map((src) => ({
       src,
       alt: 'Image Monochrome',
       type: 'monochrome' as const,
     })),
-    ...couleur.map((src) => ({
+    ...(mosaic || []).map((src) => ({
       src,
       alt: 'Image Couleur',
       type: 'color' as const,
     })),
   ];
 
-  // Mélanger aléatoirement (Fisher–Yates shuffle)
+  // ✅ Mélange aléatoire (Fisher-Yates)
   const shuffled = [...allImages];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  console.log("✅ Images chargées :", allImages);
+
   return {
     props: {
       shuffledImages: shuffled,

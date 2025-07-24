@@ -55,31 +55,6 @@ export default function Navbar() {
              aria-label="Instagram"><FaInstagram /></a>
         </div>
       </nav>
-
-      {/* Styles */}
-      <style jsx>{`
-        .nav-link {
-          position: relative;
-          padding: 4px 0;
-          transition: all 0.3s ease-in-out;
-        }
-
-        .nav-link:hover {
-          font-weight: bold;
-          background: linear-gradient(to right, #9f7aea, #667eea, #ec4899);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.25s ease-in-out forwards;
-        }
-
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(-5px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </header>
   );
 }

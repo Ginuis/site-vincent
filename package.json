@@ -2,11 +2,10 @@
   "name": "site-vincent",
   "version": "0.1.0",
   "scripts": {
-    "dev": "npm run generate-all && next dev",
-    "build": "npm run generate-all && next build",
+    "dev": "npm run generate-galleries && next dev",
+    "build": "npm run generate-galleries && next build",
     "start": "next start",
     "tailwind:init": "./node_modules/.bin/tailwindcss init -p",
-    "generate-all": "ts-node -P tsconfig.scripts.json scripts/genAll.ts",
     "generate-galleries": "node scripts/genGalleries.js"
   },
   "dependencies": {
