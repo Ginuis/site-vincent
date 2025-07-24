@@ -6,7 +6,8 @@
     "build": "npm run generate-galleries && next build",
     "start": "next start",
     "tailwind:init": "./node_modules/.bin/tailwindcss init -p",
-    "generate-galleries": "node scripts/genGalleries.js"
+    "generate-galleries": "node scripts/genGalleries.js",
+    "lint": "next lint"
   },
   "dependencies": {
     "classnames": "^2.5.1",
