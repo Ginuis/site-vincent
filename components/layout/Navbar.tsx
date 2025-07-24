@@ -21,9 +21,9 @@ export default function Navbar() {
         {/* Nom à gauche, cliquable */}
         <Link
           href="/accueil"
-          className="text-lg font-semibold hover:opacity-80 transition"
+          className="text-lg font-semibold uppercase hover:opacity-80 transition"
         >
-          Vincent Dupil Baclet
+          VINCENT DUPIL BACLET
         </Link>
 
         {/* Liens principaux */}
@@ -49,7 +49,10 @@ export default function Navbar() {
           <Link href="/contact" className="nav-link">Contact</Link>
 
           {/* Réseaux sociaux */}
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+          <a href="https://www.instagram.com/vincentdupilbaclet?igsh=Zmo4Z21yNmt2aWJ3&utm_source=qr"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Instagram"><FaInstagram /></a>
         </div>
       </nav>
 

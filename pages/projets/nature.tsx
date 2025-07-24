@@ -1,32 +1,72 @@
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import Image from 'next/image';
-import images from '../../data/galerie_images.json';
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import natureData from '@/data/natureImages.json';
+import type { GetStaticProps } from 'next';
 
-export default function Nature() {
-  const natureImages = images.nature;
+// Chargement dynamique du composant galerie (évite erreurs côté serveur)
+const FeaturedGallery = dynamic(() => import('@/components/FeaturedGallery'), { ssr: false });
+
+// Typage des images attendues
+type ImageData = {
+  src: string;
+  alt: string;
+  type: 'nature';
+};
+
+interface NaturePageProps {
+  shuffledImages: ImageData[];
+}
+
+export default function NaturePage({ shuffledImages }: NaturePageProps) {
+  // 🌿 Ambiance unique pour la nature (pas d'alternance comme Persona)
+  const [ambiance] = useState<'nature'>('nature');
+
+  const ambianceClasses = {
+    nature: 'bg-green-50 text-green-900', // Fond clair vert naturel
+  };
 
   return (
-    <>
+    <div className={`min-h-screen transition-colors duration-700 ${ambianceClasses[ambiance]}`}>
       <Navbar />
-      <main className="min-h-screen pt-24 pb-16 px-6 bg-gradient-to-br from-green-100 via-emerald-50 to-white">
-        <h1 className="text-3xl font-bold mb-6 text-emerald-900">Galerie – Nature</h1>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {natureImages.map((src, index) => (
-            <div key={index} className="overflow-hidden rounded-lg shadow hover:shadow-lg transition-all duration-300">
-              <Image
-                src={src}
-                alt={`Nature ${index + 1}`}
-                width={600}
-                height={400}
-                className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          ))}
-        </div>
+      <main className="pt-28 pb-12">
+        <h1 className="text-3xl font-bold text-center mb-8 text-green-700">
+          Galerie Nature
+        </h1>
+        {/* Galerie Featured */}
+        <FeaturedGallery
+          images={shuffledImages}
+          // Ici, pas de changement d'ambiance dynamique → on force toujours nature
+          onTypeChange={() => {}}
+        />
       </main>
-      <Footer />
-    </>
+      <Footer ambiance={'color' as any} /> 
+      {/* Footer garde son style 'color' pour rester lisible sur fond vert */}
+    </div>
   );
 }
+
+// ✅ getStaticProps → Mélange des images une seule fois côté serveur
+export const getStaticProps: GetStaticProps<NaturePageProps> = async () => {
+  const { nature = [] } = natureData;
+
+  const allImages: ImageData[] = nature.map((src) => ({
+    src,
+    alt: 'Image Nature',
+    type: 'nature',
+  }));
+
+  // Mélange simple (Fisher-Yates)
+  const shuffled = [...allImages];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return {
+    props: {
+      shuffledImages: shuffled,
+    },
+  };
+};

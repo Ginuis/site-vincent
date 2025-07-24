@@ -17,8 +17,9 @@
   font-style: normal;
 }
 
+/* ✅ Si Google Fonts ou font-face locale est utilisée */
 body {
-  font-family: 'Geist', sans-serif;
+  font-family: 'DIN Alternate', sans-serif;
 }
 
 /* styles/globals.css ou dans tailwind.css */
@@ -40,4 +41,35 @@ body {
   0% { background-position: 0% center; }
   50% { background-position: 100% center; }
   100% { background-position: 0% center; }
+}
+
+/* ✅ Animation fondu */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 2s ease-in forwards;
+}
+
+/* ✅ Animation Carrousel*/
+@keyframes verticalScroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-verticalScroll {
+  animation: verticalScroll 200s linear infinite; /* ⏳ Durée réglable : modifie 30s à volonté */
 }
