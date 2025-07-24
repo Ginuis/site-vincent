@@ -1,34 +1,34 @@
-// components/FeaturedGallery.tsx
-
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+// ✅ Type modifié : "type" devient optionnel
 interface Props {
   images: {
     src: string;
     alt: string;
-    type: 'monochrome' | 'color';
+    type?: 'monochrome' | 'color'; // ✅ optionnel
   }[];
-  onTypeChange: (type: 'monochrome' | 'color') => void;
+  onTypeChange?: (type: 'monochrome' | 'color') => void;
 }
 
 export default function FeaturedGallery({ images, onTypeChange }: Props) {
   const [current, setCurrent] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 💡 Si aucune image à afficher
   if (!images || images.length === 0) {
     return <p className="text-center text-gray-500">Aucune image à afficher.</p>;
   }
 
   const currentImage = images[current];
 
-  // 🌗 Met à jour l'ambiance selon l'image en avant
+  // ✅ Mise à jour ambiance seulement si type est défini
   useEffect(() => {
-    onTypeChange(currentImage.type);
+    if (currentImage.type && onTypeChange) {
+      onTypeChange(currentImage.type);
+    }
   }, [currentImage, onTypeChange]);
 
-  // ⏱️ Défilement automatique toutes les 5 secondes
+  // ✅ Changement automatique toutes les 5 secondes
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -38,7 +38,7 @@ export default function FeaturedGallery({ images, onTypeChange }: Props) {
 
   return (
     <div className="max-w-6xl mx-auto px-4">
-      {/* 🖼️ Image principale */}
+      {/* Image principale */}
       <div className="aspect-[3/2] relative rounded-xl overflow-hidden shadow-lg mb-6">
         <Image
           src={currentImage.src}
@@ -49,7 +49,7 @@ export default function FeaturedGallery({ images, onTypeChange }: Props) {
         />
       </div>
 
-      {/* 📜 Scroll horizontal avec drag + clic pour changer l’image */}
+      {/* Miniatures horizontales avec scroll doux + drag */}
       <div
         ref={containerRef}
         className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing"
@@ -74,19 +74,23 @@ export default function FeaturedGallery({ images, onTypeChange }: Props) {
         }}
       >
         {images.map((img, idx) => (
-          <div
+          <button
             key={idx}
             onClick={() => setCurrent(idx)}
-            className="relative h-32 min-w-[160px] rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 border-2 border-transparent hover:border-white cursor-pointer"
+            className={`relative h-20 w-32 rounded-lg overflow-hidden border-2 transition-transform duration-200 ${
+              current === idx
+                ? 'border-white scale-105 shadow-md'
+                : 'border-transparent opacity-70 hover:opacity-100'
+            }`}
           >
             <Image
               src={img.src}
               alt={img.alt}
               fill
               className="object-cover object-center"
-              sizes="160px"
+              sizes="100px"
             />
-          </div>
+          </button>
         ))}
       </div>
     </div>

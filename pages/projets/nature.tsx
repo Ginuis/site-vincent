@@ -1,55 +1,30 @@
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import galleriesData from '@/data/galleries.json';
+import galleries from '@/data/galleries.json';
+import FeaturedGallery from '@/components/FeaturedGallery';
 
-// ✅ Chargement dynamique
-const FeaturedGallery = dynamic(() => import('@/components/FeaturedGallery'), { ssr: false });
-
-type ImageData = {
+type NatureImage = {
   src: string;
   alt: string;
-  type: 'nature';
 };
 
-interface NaturePageProps {
-  natureImages: ImageData[];
-}
-
-export default function NaturePage({ natureImages }: NaturePageProps) {
-  const [ambiance] = useState<'nature'>('nature');
-
-  // ✅ Ambiance spécifique "Nature"
-  const ambianceClasses = {
-    nature: 'bg-green-50 text-green-900',
-  };
+export default function NaturePage() {
+  // ✅ Construction des images sans "type"
+  const natureImages: NatureImage[] = (galleries.nature || []).map(
+    (src: string) => ({
+      src,
+      alt: 'Image Nature',
+    })
+  );
 
   return (
-    <div className={`min-h-screen transition-colors duration-700 ${ambianceClasses[ambiance]}`}>
+    <div className="min-h-screen bg-white text-gray-800">
       <Navbar />
       <main className="pt-28 pb-12">
         <h1 className="text-3xl font-bold text-center mb-8">Galerie Nature</h1>
-
-        {/* ✅ Pas de changement d’ambiance dynamique ici */}
-        <FeaturedGallery images={natureImages} onTypeChange={() => {}} />
+        <FeaturedGallery images={natureImages as any} onTypeChange={() => {}} />
       </main>
-      <Footer ambiance="color" />
+      <Footer />
     </div>
   );
-}
-
-// ✅ Récupération des images Nature
-export async function getStaticProps() {
-  const natureImages: ImageData[] = (galleriesData.nature || []).map((src) => ({
-    src,
-    alt: 'Image Nature',
-    type: 'nature' as const,
-  }));
-
-  return {
-    props: {
-      natureImages,
-    },
-  };
 }
