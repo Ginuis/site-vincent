@@ -34,7 +34,7 @@ export default function Accueil() {
 
       {/* ✅ Footer transparent */}
       <div className="absolute bottom-0 left-0 w-full z-50 bg-transparent">
-        <Footer ambiance="color" />
+        <Footer/>
       </div>
     </div>
   );
