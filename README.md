@@ -1,10 +1,10 @@
 # Site vitrine – Vincent Dupil Baclet / Portfolio Website
 
-Ce site est un projet professionnel conçu pour l’artiste visuel Vincent Dupil Baclet.  
-Il repose sur **Next.js**, **Tailwind CSS**, et **TypeScript**, avec génération dynamique d’images, design responsive, et une navigation fluide.
+Ce site est un portfolio artistique professionnel conçu pour Vincent Dupil Baclet.  
+Il utilise **Next.js**, **Tailwind CSS** et **TypeScript**, avec un design immersif et des galeries dynamiques.
 
-This website is a professional portfolio built for visual artist Vincent Dupil Baclet.  
-It uses **Next.js**, **Tailwind CSS**, and **TypeScript**, with dynamic image loading, responsive design, and smooth navigation.
+This website is a professional portfolio built for Vincent Dupil Baclet.  
+It uses **Next.js**, **Tailwind CSS**, and **TypeScript**, with immersive design and dynamic galleries.
 
 ---
 
@@ -23,135 +23,112 @@ npm run dev
 ```
 
 Cela va :
-- Générer automatiquement les fichiers `images.json` et `gallery.json`
+- Générer automatiquement les fichiers JSON pour les galeries (`images.json`, `personaImages.json`, `natureImages.json`)
 - Démarrer le site sur : [http://localhost:3000](http://localhost:3000)
 
 This will:
-- Auto-generate `images.json` and `gallery.json`
+- Auto-generate gallery JSON files (`images.json`, `personaImages.json`, `natureImages.json`)
 - Start the dev server at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🔁 Génération automatique d’images / Automatic Image Parsing
+## 🔁 Génération automatique des galeries / Automatic Gallery Generation
 
-Chaque dossier d’images est analysé automatiquement pour générer les données JSON nécessaires :
+Chaque dossier d’images est analysé automatiquement :
 
 - `/public/images/pg/` → images d’arrière-plan (page de garde)
 - `/public/images/galerie/nature/` → galerie *Nature*
-- `/public/images/galerie/monochrome/` et `/monosaïque/` → galerie *Persona*
+- `/public/images/galerie/monochrome/` + `/galerie/couleur/` → galerie *Persona*
 
-Each folder is scanned to generate dynamic content:
-
-- `/public/images/pg/` → landing page backgrounds
-- `/public/images/galerie/nature/` → Nature gallery
-- `/public/images/galerie/monochrome/` and `/monosaïque/` → Persona gallery
-
-Le résultat est écrit dans `/data/gallery.json` et `/data/images.json`.
+Résultat enregistré dans `/data/`.
 
 ---
 
 ## 📜 Scripts disponibles / Available Scripts
 
 ```bash
-npm run dev               # Dev + auto-génération d'images
-npm run build             # Build + auto-génération
-npm run generate-all      # Génère uniquement les fichiers JSON
+npm run dev                  # Dev + génération automatique des galeries
+npm run build                # Build + génération automatique
+npm run generate-galleries   # Génère uniquement tous les fichiers JSON
 ```
 
 ---
 
-## 🎨 Identité visuelle / Visual Identity
+## 🎨 Identité visuelle & Pages / Visual Identity & Pages
 
-- **Nature** : tons verts, ambiance forêt
+- **Page de garde** : image plein écran, texte unique **“VINCENT DUPIL BACLET”** en fondu + redirection auto vers l’accueil.  
+- **Accueil** :
+  - Carrousel vertical immersif en défilement continu ultra lent (60s).
+  - Navbar & Footer transparents pour une immersion totale.
 - **Persona** :
-  - Monochrome → ambiance sobre
-  - Couleurs → ambiance plus mosaïque, douce
-- **Typographie** : Geist (via @font-face)
-- **Responsive design** : mobile & desktop
+  - Mélange aléatoire des images (monochrome + couleur).
+  - Ambiance dynamique : sombre pour monochrome, claire pour couleur.
+- **Nature** :
+  - Ambiance verdoyante, style épuré et naturel.
+
+**Typographie** : Fira Sans (équivalent Google Fonts de DIN Alternate).  
+**Responsive design** : compatible mobile & desktop.
 
 ---
 
 ## 🧭 Navigation & Footer
 
 ### Barre de navigation / Navigation bar
-- Nom "Vincent Dupil Baclet" cliquable (redirige vers `/accueil`)
-- Liens : Concept Art, Projets (avec sous-menu), Contact
-- Sous-menu animé : *Projets → Persona*, *Nature*
-- Icônes réseaux sociaux (Instagram, Facebook, X)
-- Surbrillance lien actif + effet néon holographique au hover
+- **Nom** : `VINCENT DUPIL BACLET` (MAJUSCULES, cliquable → `/accueil`)
+- **Liens** : Concept Art, Projets (sous-menu Persona & Nature), Contact
+- **Icônes** :
+  - Instagram : [vincentdupilbaclet](https://www.instagram.com/vincentdupilbaclet?igsh=Zmo4Z21yNmt2aWJ3&utm_source=qr)
+  - Facebook & X (liens placeholder)
+- **Effets** : lien actif surbrillant, hover néon/holographique.
 
 ### Footer
-- Petit footer centré, texte : `© Vincent Dupil Baclet`
-- Style translucide et discret
+- Petit footer translucide, centré : `© Vincent Dupil Baclet`
 
 ---
 
-## 🚀 Déploiement sur Vercel / Deployment on Vercel
+## 🚀 Déploiement / Deployment
 
-Le site est prévu pour un déploiement statique via [Vercel](https://vercel.com).
+Le site est déployé automatiquement via [Vercel](https://vercel.com).
 
-> Pour tester en ligne, chaque push vers `main` déploie automatiquement sur Vercel (préconfiguré).
-
-**Configuration spéciale :**
-- Image statique dans `/public/`
-- Aucune API externe requise
-- Aucune base de données
-
----
-
-**Nom de domaine personnalisé :** possible (prévoir coût 70–90 € / an)
+- **Chaque push sur `main` → déploiement automatique.**  
+- **Nom de domaine personnalisé possible** (70–90 €/an).
 
 ---
 
 ## 🧱 Stack & Structure du projet / Stack & Project Structure
 
 - **Next.js** 13 (Pages Router)
-- **TypeScript** pour typage strict
-- **Tailwind CSS** pour les styles
-- **React Icons** pour les icônes
-- **Scripts TS personnalisés** pour auto-génération JSON
-
-Structure :
+- **TypeScript** (typage strict)
+- **Tailwind CSS** (styles rapides & responsive)
+- **React Icons** (icônes)
+- **Scripts personnalisés Node.js** (génération automatique JSON)
 
 ```
 .
-├── components/        # Navbar, Footer
-├── pages/             # garde, accueil, projets/...
-├── public/images/     # images galerie
-├── data/              # images.json, gallery.json
-├── scripts/           # scripts de génération
-└── styles/            # globals.css
+├── components/        # Navbar, Footer, Galerie
+├── pages/             # garde, accueil, projets/persona, projets/nature...
+├── public/images/     # images des galeries
+├── data/              # JSON générés (personaImages, natureImages…)
+├── scripts/           # scripts de génération automatique
+└── styles/            # globals.css, animations
 ```
 
 ---
 
 ## 📝 Journal de modifications / Changelog
 
-### ✅ Version actuelle : `v0.2.0 – Phase test client` (03/07/2025)
-
-- Création de la page de garde dynamique (image de fond toutes les 15 min)
-- Mise en place d’un système automatique de génération des galeries
-- Navigation fluide avec sous-menu animé
-- Responsive design terminé (Navbar & pages)
-- Préparation à l'intégration du contenu final pour /projets/persona et /nature
-- Première version du `README.md` bilingue
-
-### 🔜 À venir
-
-- Mise en page complète des pages galerie
-- Intégration du contenu réel pour "Persona" & "Nature"
-- Mode galerie fullscreen avec lightbox (option premium ?)
-- Animation entrée de page
+Voir le fichier [`CHANGELOG.md`](./CHANGELOG.md) pour plus de détails.  
+Dernière version : **v1.3.0 – Amélioration de l’accueil & galeries** (24/07/2025).
 
 ---
 
 ## © Crédits & Licence
 
-Développé par [Splendeurs](https://splendeurs.dev) pour l’artiste Vincent Dupil Baclet.  
-Projet réalisé avec soin dans un cadre semi-professionnel.
+Développé par **Splendeurs** pour l’artiste **Vincent Dupil Baclet**.  
+Projet réalisé dans un cadre professionnel & artistique.  
 
-Aucun usage commercial ou distribution sans autorisation.  
-Le code peut être adapté dans un cadre pédagogique ou personnel.
+Usage commercial ou distribution interdits sans autorisation.  
+Utilisation pédagogique ou personnelle autorisée avec crédits.
 
 ---
 
